@@ -1,0 +1,40 @@
+---
+title: "pySM_installation_trial"
+output: html_document
+---
+
+```{bash setup, include=FALSE}
+# install pySM with instructions, replace 'conda' for "mamba"
+mkdir spatial_metabolomics
+cd spatial_metabolomics
+git clone https://github.com/alexandrovteam/pySM
+
+cd pySM
+mamba env create 
+# Encountered problems while solving:
+#  - nothing provides requested numpy 1.10.1**
+#  - nothing provides requested scipy 0.17.0**
+#  - nothing provides requested numba 0.24.0**
+#  - nothing provides requested pandas 0.18.0**
+micromamba create -n pySM -y python=2.7
+micromamba activate pySM 
+
+pip install . -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install pyMSpec instrument==0.5.0
+
+python
+```
+
+
+```{python2, run the pySM script}
+from pySM import spatial_metabolomics
+json_filename = './pySM/example/a_pos.json'
+spatial_metabolomics.run_pipeline(json_filename)
+
+```
+
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
